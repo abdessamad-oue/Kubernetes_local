@@ -68,3 +68,31 @@ to enable to autoscale:
 ```sh
 kubectl autoscale deployment mynginx --min 1 --max 5
 ```
+
+### Debugging
+
+list nodes and their status
+
+```sh
+kubectl describe nodes kubmaster
+```
+get components
+```sh
+kubectl get componentstatuses  # or " kubectl get cs " 
+kubectl get daemonsets -n kube-system
+kubectl get all
+```
+useful options : \
+ **-o wide**  => more details \
+ **-n kube-system** => display system info (namespaces)
+
+to show logs:
+
+```sh
+kubectl logs <POD>
+```
+events:
+```sh
+kubectl get events
+kubectl describe pods <POD>
+```
