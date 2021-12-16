@@ -33,3 +33,38 @@ to access to the pod from external browser:
 
 http://192.168.56.102:<PORT - like 31363 ..>/
 
+### scaling
+first we will continue with the same previous example (nginx pod) 
+we update the /usr/share/nginx/html/index.html inside the pod
+
+```sh
+kubectl exec -it mynginx-<id> /bin/bash
+
+# inside the container
+echo "instance 1" >  /usr/share/nginx/html/index.html 
+```
+to scale :
+
+```sh
+kubectl scale deploy mynginx --replicas=2
+```
+we do the same for the new pod (update index.html of ngnix )
+
+```sh
+kubectl exec -it mynginx-<id> /bin/bash
+
+# inside the container
+echo "instance 2" >  /usr/share/nginx/html/index.html 
+```
+now the load balacing is up :) 
+
+we can go back to one only replicas:
+
+```sh
+kubectl scale deploy mynginx --replicas=1
+```
+to enable to autoscale:
+
+```sh
+kubectl autoscale deployment mynginx --min 1 --max 5
+```
