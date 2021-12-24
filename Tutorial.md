@@ -70,6 +70,11 @@ kubectl autoscale deployment mynginx --min 1 --max 5
 ```
 
 ### Debugging
+to watch modification , example:
+
+```sh
+watch kubectl get pods
+```
 
 list nodes and their status
 
