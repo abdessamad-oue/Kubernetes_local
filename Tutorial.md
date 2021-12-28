@@ -101,3 +101,21 @@ events:
 kubectl get events
 kubectl describe pods <POD>
 ```
+### Export Resources
+
+To generate configurations files via CLI , from an existant deployment:
+
+```sh
+kubectl get deploy mynginx -o yaml > mydeploy.yml
+```
+Edit the file and delete all the status section .
+Now we can delete the current deployment
+```sh
+kubectl delete deployments mynginx
+```
+we test the deplyment creation from the yaml file:
+```sh
+kubectl apply -f mydeploy.yml
+```
+**Note :** we can also generate a config file (yaml) for a service 
+
