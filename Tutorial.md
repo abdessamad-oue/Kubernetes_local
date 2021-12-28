@@ -117,5 +117,16 @@ we test the deplyment creation from the yaml file:
 ```sh
 kubectl apply -f mydeploy.yml
 ```
-**Note :** we can also generate a config file (yaml) for a service 
+**Note :** 
+- we can also generate a config file (yaml) for a service 
+- We can concat the 2 files (deployment and service) separate by --- and  apply on one shot
 
+### Resources List
+to list resources
+```sh
+kubectl api-resources 
+```
+to read a manual for a specfic resource: (pod for example)
+```sh
+kubectl explain pod
+```
