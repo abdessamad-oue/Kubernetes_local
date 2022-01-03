@@ -130,3 +130,31 @@ to read a manual for a specfic resource: (pod for example)
 ```sh
 kubectl explain pod
 ```
+### Namespace
+to create a namespace
+```sh
+kubectl create ns server
+```
+to list existing namespaces
+```sh
+kubectl get ns
+```
+We can create a deployment inside a namespace
+```sh
+kubectl create deployment mynginx --image nginx -n server
+```
+### Context
+create a context:
+```sh
+kubectl config set-context server_context --namespace server --user kubernetes-admin --cluster kubernetes
+```
+switch to context
+```sh
+kubectl config use-context server_context
+```
+try a get pods now , you will see the pods of the namespace of the context ..
+to show available context
+```sh
+kubectl config get-contexts
+```
+
