@@ -1,7 +1,7 @@
-### K8s Installaion
+## K8s Installaion
  Please check [README.md](./README.md)
 
-### deployment
+## Deployment
 It's a logical representation for one or many pods 
 
 ```sh
@@ -15,7 +15,7 @@ to show deploy information
 kubectl describe deploy mynginx
 ```
 
-### Services
+## Services
 An abstract way to expose an application running on a set of Pods as a network service
 
 create a serice to access the pod
@@ -33,7 +33,7 @@ to access to the pod from external browser:
 
 http://192.168.56.102:<PORT - like 31363 ..>/
 
-### scaling
+## Scaling
 first we will continue with the same previous example (nginx pod) 
 we update the /usr/share/nginx/html/index.html inside the pod
 
@@ -69,7 +69,7 @@ to enable to autoscale:
 kubectl autoscale deployment mynginx --min 1 --max 5
 ```
 
-### Debugging
+## Debugging
 to watch modification , example:
 
 ```sh
@@ -101,7 +101,7 @@ events:
 kubectl get events
 kubectl describe pods <POD>
 ```
-### Export Resources
+## Export Resources
 
 To generate configurations files via CLI , from an existant deployment:
 
@@ -121,7 +121,7 @@ kubectl apply -f mydeploy.yml
 - we can also generate a config file (yaml) for a service 
 - We can concat the 2 files (deployment and service) separate by --- and  apply on one shot
 
-### Resources List
+## Resources List
 to list resources
 ```sh
 kubectl api-resources 
@@ -130,7 +130,7 @@ to read a manual for a specfic resource: (pod for example)
 ```sh
 kubectl explain pod
 ```
-### Namespace
+## Namespace
 to create a namespace
 ```sh
 kubectl create ns server
@@ -143,7 +143,7 @@ We can create a deployment inside a namespace
 ```sh
 kubectl create deployment mynginx --image nginx -n server
 ```
-### Context
+## Context
 create a context:
 ```sh
 kubectl config set-context server_context --namespace server --user kubernetes-admin --cluster kubernetes
@@ -156,5 +156,24 @@ try a get pods now , you will see the pods of the namespace of the context ..
 to show available context
 ```sh
 kubectl config get-contexts
+```
+## Labels
+
+attach a label to a pod
+```sh
+kubectl run mynginx --image nginx --labels "env=prod,group=back"
+```
+show pods with label
+```sh
+kubectl get pods --show-labels
+
+```
+to delete a label :
+```sh
+kubectl label pods mynginx --overwrite "group-"
+```
+use a **selector**:
+```sh
+kubectl get pods --selector="env=dev" --show-labels
 ```
 
