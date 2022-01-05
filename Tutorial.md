@@ -176,4 +176,56 @@ use a **selector**:
 ```sh
 kubectl get pods --selector="env=dev" --show-labels
 ```
+## POD configuration
+we will create a pod via a config file (**manifest**), copy the below content inside an yml file
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+  # namespace: abde
+  labels:
+    env: prod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
 
+```
+then, apply witg kubectl
+
+```sh
+kubectl apply -f <file.yml>
+```
+and the pod is created !
+you can curl from the worker (kubnode) the ip of the pod to check nginx default response on port 80
+
+## Multi Containers POD 
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+  # namespace: abde
+  labels:
+    env: prod
+spec:
+  containers:
+  # container 1 - Nginx
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+  # container 2 - Debian
+  - name: mydebian
+    image: debian
+    command: ["sleep", "600"]
+
+```
+you can access to the container in the pod by :
+```sh
+kubectl exec -ti mypod -c <mydebian> /bin/bash
+```
